@@ -13,4 +13,6 @@ public interface IHistoriaService {
 
 	public List<Historia> findAllStoriesActives();
 
+	List<Historia> findlala();
+
 }

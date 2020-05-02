@@ -23,4 +23,12 @@ public interface IHistoriaDao  extends CrudRepository<Historia,Long>{
 			"					 FROM Historia his" + 
 			"					 WHERE his.activo =1" )
 	public List<Historia> findAllStoriesActives();
-}
+} 
+
+//
+//@Query(
+//		"					 FROM Historia his" + 
+//		"					 JOIN his.comentarios as com "
+//		+ "					 WHERE his.activo =1"
+//		+ "					 AND com.ganador = 1" )
+//public List<Map<String,Object>> findAllStoriesActives();

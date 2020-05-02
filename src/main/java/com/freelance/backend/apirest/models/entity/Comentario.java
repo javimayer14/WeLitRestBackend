@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -30,15 +31,18 @@ public class Comentario implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Usuario usuario;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_historia")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Historia historia;
-	private int mg;
+	private Integer mg;
+	@Lob
+    @Column(name = "comentario", columnDefinition="TEXT")
 	private String comentario;
+	private Integer ganador;
 	private Date createAt;
 
 	public long getId() {
@@ -66,11 +70,11 @@ public class Comentario implements Serializable {
 		this.historia = historia;
 	}
 
-	public int getMg() {
+	public Integer getMg() {
 		return mg;
 	}
 
-	public void setMg(int mg) {
+	public void setMg(Integer mg) {
 		this.mg = mg;
 	}
 
@@ -80,6 +84,15 @@ public class Comentario implements Serializable {
 
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
+	}
+	
+
+	public Integer getGanador() {
+		return ganador;
+	}
+
+	public void setGanador(Integer ganador) {
+		this.ganador = ganador;
 	}
 
 	public Date getCreateAt() {

@@ -24,5 +24,15 @@ public class ComentarioServiceImpl implements IComentarioService{
 		comentarioDao.save(comentario);
 		
 	}
+	
+	@Transactional
+	public void delete(Long id) {
+		comentarioDao.deleteById(id);
+	}
+	
+	public Comentario findById (Long id) {
+		return comentarioDao.findById(id).orElse(null);
+	}
+	
 
 }

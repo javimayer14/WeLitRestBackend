@@ -7,4 +7,8 @@ public interface IComentarioService {
 	public List<Comentario> findAll();
 	
 	public void save(Comentario comentario);
+
+	public void delete(Long id);
+
+	public Comentario findById(Long id);
 }

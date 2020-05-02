@@ -10,30 +10,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.freelance.backend.apirest.models.entity.Historia;
-import com.freelance.backend.apirest.models.services.IHistoriaService;
+import com.freelance.backend.apirest.models.entity.Score;
+import com.freelance.backend.apirest.models.services.IScoreService;
 
 @RestController
 @RequestMapping("/api")
-public class HistoriaRestController {
+public class ScoreRestController {
 
 	@Autowired
-	IHistoriaService historiaService;
+	IScoreService scoreService;
 
-	@GetMapping("/historias")
-	private List<Historia> index() {
-		return historiaService.findAll();
-	}
-	
-	@GetMapping("/historiasPrueba")
-	private List<Historia> prueba() {
-		return historiaService.findlala();
+	@GetMapping("scores")
+	public List<Score> index() {
+		return scoreService.findAll();
+
 	}
 
-	@PostMapping("/historias")
+	@PostMapping("/scores")
 	@ResponseStatus(HttpStatus.CREATED)
-	private void create(@RequestBody Historia historia) {
-		historiaService.save(historia);
+	public void create(@RequestBody Score score) {
+		scoreService.save(score);
 	}
+
 }

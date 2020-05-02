@@ -1,24 +1,17 @@
 package com.freelance.backend.apirest;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.freelance.backend.apirest.models.dao.IHistoriaDao;
-import com.freelance.backend.apirest.models.entity.Historia;
 import com.freelance.backend.apirest.models.services.HistoriaServiceImpl;
-import com.freelance.backend.apirest.models.services.IHistoriaService;
 
 @SpringBootApplication
 public class WelitApplication implements CommandLineRunner {
 
-	@Autowired
-	IHistoriaService historiaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(WelitApplication.class, args);
@@ -31,12 +24,9 @@ public class WelitApplication implements CommandLineRunner {
 		timer.schedule(new TimerTask() {
 			public void run() {
 				try {
-					List<Historia> historiasActivas = historiaService.findAllStoriesActives();
-					for(Historia his : historiasActivas) {
-						historiaService.findBestComent(his.getId());
-						System.out.println("Agrego mejor comentario a historia:" +his.getId()+ " fecha: " + new java.util.Date());
-					}
-									
+					HistoriaServiceImpl historiaService= new HistoriaServiceImpl();
+					historiaService.findlala();
+
 				} catch (Exception e) {
 					System.out.println("Rompio" + e);
 				}

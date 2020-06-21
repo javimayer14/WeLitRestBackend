@@ -20,7 +20,8 @@ public class Rango implements Serializable{
 	private Long id;
 	private String codigo;
 	private String descripcion;
-	
+	private Integer puntuacionMinima;
+
 	public Long getId() {
 		return id;
 	}
@@ -38,6 +39,12 @@ public class Rango implements Serializable{
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public Integer getPuntuacionMinima() {
+		return puntuacionMinima;
+	}
+	public void setPuntuacionMinima(Integer puntuacionMinima) {
+		this.puntuacionMinima = puntuacionMinima;
 	}
 	
 	

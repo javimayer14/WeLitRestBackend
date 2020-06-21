@@ -1,24 +1,33 @@
 package com.freelance.backend.apirest.models.services;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.freelance.backend.apirest.models.dao.IComentarioDao;
 import com.freelance.backend.apirest.models.dao.IHistoriaDao;
+import com.freelance.backend.apirest.models.dao.IRangoDao;
 import com.freelance.backend.apirest.models.dao.IUsuarioDao;
 import com.freelance.backend.apirest.models.entity.Comentario;
 import com.freelance.backend.apirest.models.entity.Historia;
+import com.freelance.backend.apirest.models.entity.Rango;
 import com.freelance.backend.apirest.models.entity.Usuario;
 
 @Service
 public class HistoriaServiceImpl implements IHistoriaService {
+
+	public static final Integer ACTIVO = 1;
+	public static final Integer INACTIVO = 0;
+	public static final Integer COMENTARIOS_MINIMOS = 3;
+	public static final Integer PTS_ORO = 100;
+	public static final Integer PTS_PLATA = 40;
+	public static final Integer PTS_BRONCE = 20;
 
 	@Autowired
 	IHistoriaDao historiaDao;
@@ -26,6 +35,8 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	IUsuarioDao usuarioDao;
 	@Autowired
 	IComentarioDao comentarioDao;
+	@Autowired
+	IRangoDao rangoDao;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -47,54 +58,103 @@ public class HistoriaServiceImpl implements IHistoriaService {
 		return historiaDao.findAllStoriesActives();
 	}
 
+	@Override
+
+	public List<Historia> findAllStoriesInActives() {
+		return historiaDao.findAllStoriesInActives();
+	}
+
+	@Transactional
+	@Scheduled(cron = "0 57 16 * * *", zone = "America/Buenos_Aires")
 	public List<Historia> findlala() {
 		List<Historia> historiasActivas = historiaDao.findAllStoriesActives();
 		for (Historia his : historiasActivas) {
 			List<Comentario> comentarios = his.getComentarios();
-			List<Comentario> comentariosParticipando = comentarios.stream().filter(coment -> coment.getGanador() == 0)
+			List<Comentario> comentariosParticipando = comentarios.stream()
+					.filter(coment -> coment.getGanador().equals(INACTIVO) && coment.getParticipando().equals(ACTIVO))
 					.collect(Collectors.toList());
 
 			Comparator<Comentario> compareByMg = (Comentario o1, Comentario o2) -> o1.getMg().compareTo(o2.getMg());
 			Collections.sort(comentariosParticipando, compareByMg.reversed());
 
 			try {
-				if (comentariosParticipando.size() >= 3) {
-					
-					Usuario usuarioGanador = comentariosParticipando.get(0).getUsuario();
-					Integer medallaOro = usuarioGanador.getScore().getMedallaOro();
-					usuarioGanador.getScore().setMedallaOro(medallaOro + 1);
-					comentariosParticipando.get(0).setGanador(1);
-					comentarioDao.save(comentariosParticipando.get(0));
-					usuarioDao.save(usuarioGanador);
-
-
-					Usuario usuarioSegundo = comentariosParticipando.get(1).getUsuario();
-					Integer medallaPlata = usuarioSegundo.getScore().getMedallaPlata();
-					usuarioSegundo.getScore().setMedallaPlata(medallaPlata + 1);
-					comentariosParticipando.get(1).setGanador(1);
-					comentarioDao.save(comentariosParticipando.get(1));
-					usuarioDao.save(usuarioSegundo);
-
-
-					Usuario usuarioTercero = comentariosParticipando.get(2).getUsuario();
-					Integer medallaBronce = usuarioTercero.getScore().getMedallaPlata();
-					usuarioTercero.getScore().setMedallaBronce(medallaBronce + 1);
-					comentariosParticipando.get(2).setGanador(1);
-					comentarioDao.save(comentariosParticipando.get(2));
-					usuarioDao.save(usuarioTercero);
-
-
+				if (comentariosParticipando.isEmpty()) {
+					return historiasActivas;
 				}
 
+				firstUser(comentariosParticipando);
+				secondUser(comentariosParticipando);
+				thirdUser(comentariosParticipando);
+
+				for (Comentario com : comentariosParticipando) {
+					com.setParticipando(INACTIVO);
+				}
+				comentarioDao.saveAll(comentariosParticipando);
+
+				if (his.getCapitulos().equals(comentariosParticipando.get(0).getCapitulo())) {
+					his.setActivo(INACTIVO);
+					historiaDao.save(his);
+				}
 
 			} catch (Exception e) {
-				System.out.println("ERROR:" + e);
+				// logger.error("No se pudo setear las medallas a los ganadores", e );
 			}
-
-			his.setComentarios(comentariosParticipando);
 
 		}
 		return historiasActivas;
+	}
+
+	private void firstUser(List<Comentario> comentariosParticipando) {
+		Usuario usuarioGanador = comentariosParticipando.get(0).getUsuario();
+		Integer medallaOro = usuarioGanador.getScore().getMedallaOro();
+		usuarioGanador.getScore().setMedallaOro(medallaOro + 1);
+		puntation(usuarioGanador);
+		comentariosParticipando.get(0).setGanador(1);
+		usuarioDao.save(usuarioGanador);
+	}
+
+	private void secondUser(List<Comentario> comentariosParticipando) {
+		if (comentariosParticipando.size() >= 2) {
+			Usuario usuarioSegundo = comentariosParticipando.get(1).getUsuario();
+			Integer medallaPlata = usuarioSegundo.getScore().getMedallaPlata();
+			usuarioSegundo.getScore().setMedallaPlata(medallaPlata + 1);
+			puntation(usuarioSegundo);
+			comentariosParticipando.get(0).setGanador(1);
+
+			usuarioDao.save(usuarioSegundo);
+		}
+	}
+
+	private void thirdUser(List<Comentario> comentariosParticipando) {
+		if (comentariosParticipando.size() >= 3) {
+			Usuario usuarioTercero = comentariosParticipando.get(2).getUsuario();
+			Integer medallaBronce = usuarioTercero.getScore().getMedallaBronce();
+			usuarioTercero.getScore().setMedallaBronce(medallaBronce + 1);
+			puntation(usuarioTercero);
+			usuarioDao.save(usuarioTercero);
+		}
+	}
+
+	private Usuario puntation(Usuario usuario) {
+		Integer oro = usuario.getScore().getMedallaOro();
+		Integer plata = usuario.getScore().getMedallaPlata();
+		Integer bronce = usuario.getScore().getMedallaBronce();
+		Integer puntuacion = ((oro * PTS_ORO) + (plata * PTS_PLATA) + (bronce * PTS_BRONCE));
+		List<Rango> rangos = (List<Rango>) rangoDao.findAll();
+		Rango rango = new Rango();
+		for (Rango r : rangos) {
+			if (puntuacion >= r.getPuntuacionMinima()) {
+				rango = r;
+			}
+		}
+		usuario.getScore().setPuntuacion(puntuacion);
+		usuario.setRango(rango);
+		return usuario;
+	}
+
+	@Override
+	public List<Historia> findByName(String titulo) {
+		return historiaDao.findByName(titulo);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.freelance.backend.apirest.models.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	@Override
 	public void save(Usuario usuario) {
 		usuarioDao.save(usuario);		
+	}
+
+	@Override
+	public Optional<Usuario> findById(String id) {
+		return usuarioDao.findById(id);
+	}
+
+	@Override
+	public Usuario findById2(String id) {
+		return usuarioDao.findById2(id);
 	}
 
 }

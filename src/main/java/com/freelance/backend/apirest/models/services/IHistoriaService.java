@@ -15,4 +15,8 @@ public interface IHistoriaService {
 
 	List<Historia> findlala();
 
+	List<Historia> findAllStoriesInActives();
+
+	List<Historia>  findByName(String titulo);
+
 }

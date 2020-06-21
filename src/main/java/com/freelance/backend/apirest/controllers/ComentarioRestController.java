@@ -21,32 +21,38 @@ import com.freelance.backend.apirest.models.services.IComentarioService;
 @RequestMapping("/api")
 public class ComentarioRestController {
 
-	@Autowired 
+	@Autowired
 	IComentarioService comentarioService;
-	
+
 	@GetMapping("/comentarios")
-	public List<Comentario> index(){
-		return comentarioService.findAll(); 
+	public List<Comentario> index() {
+		return comentarioService.findAll();
 	}
-	
+
+	@GetMapping("comentarios/comentariosPorHistoria/{id}")
+	public Long findNumbersOfRecordsByStory(@PathVariable Long id) {
+		return comentarioService.findNumbersOfRecordsByStory(id);
+	}
+
 	@PostMapping("/comentarios")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void save(@RequestBody Comentario comentario) {
 		comentarioService.save(comentario);
-	} 
+	}
+
 	@DeleteMapping("comentarios/{id}")
 	public void delete(@PathVariable Long id) {
 		comentarioService.delete(id);
 	}
+
 	@PutMapping("comentarios/{id}")
 	public void update(@RequestBody Comentario comentario, @PathVariable Long id) {
 		Comentario comentarioActual = comentarioService.findById(id);
 
-		comentarioActual.setMg(comentario.getMg());
-		comentarioActual.setComentario(comentario.getComentario());
+		comentarioActual.setMg(comentarioActual.getMg() + 1);
 		comentarioActual.setCreateAt(comentario.getCreateAt());
 		comentarioService.save(comentarioActual);
 
 	}
-	
+
 }

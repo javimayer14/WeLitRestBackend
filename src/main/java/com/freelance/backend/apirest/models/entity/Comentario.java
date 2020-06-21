@@ -14,10 +14,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "comentarios")
@@ -26,23 +24,25 @@ public class Comentario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_comentario")
+	@Column(name = "id_comentario")
 	private long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Usuario usuario;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_historia")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Historia historia;
 	private Integer mg;
 	@Lob
-    @Column(name = "comentario", columnDefinition="TEXT")
+	@Column(name = "comentario", columnDefinition = "TEXT")
 	private String comentario;
+	private Integer capitulo;
 	private Integer ganador;
+	private Integer participando;
 	private Date createAt;
 
 	public long getId() {
@@ -61,7 +61,6 @@ public class Comentario implements Serializable {
 		this.usuario = usuario;
 	}
 
-	
 	public Historia getHistoria() {
 		return historia;
 	}
@@ -85,7 +84,6 @@ public class Comentario implements Serializable {
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
-	
 
 	public Integer getGanador() {
 		return ganador;
@@ -101,6 +99,22 @@ public class Comentario implements Serializable {
 
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
+	}
+
+	public Integer getCapitulo() {
+		return capitulo;
+	}
+
+	public void setCapitulo(Integer capitulo) {
+		this.capitulo = capitulo;
+	}
+
+	public Integer getParticipando() {
+		return participando;
+	}
+
+	public void setParticipando(Integer participando) {
+		this.participando = participando;
 	}
 
 }

@@ -31,7 +31,6 @@ public class ScoreServiceImpl implements IScoreService {
 
 	@Override
 	public Score findById(Long id) {
-		// TODO Auto-generated method stub
 		return scoreDao.findById(id).orElse(null);
 	}
 

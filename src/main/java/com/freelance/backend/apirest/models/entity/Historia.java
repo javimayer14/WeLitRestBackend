@@ -41,8 +41,21 @@ public class Historia implements Serializable {
 	@Lob
     @Column(name = "relato", columnDefinition="TEXT")
     private String relato;
+    private String imagen;
+    private Integer mg;
+    private Integer capitulos;
+
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
 	private Date createAt;
-	private int activo;
+	private Integer activo;
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -101,12 +114,28 @@ public class Historia implements Serializable {
 		this.comentarios = comentarios;
 	}
 
-	public int getActivo() {
+	public Integer getActivo() {
 		return activo;
 	}
 
-	public void setActivo(int activo) {
+	public void setActivo(Integer activo) {
 		this.activo = activo;
+	}
+
+	public Integer getMg() {
+		return mg;
+	}
+
+	public void setMg(Integer mg) {
+		this.mg = mg;
+	}
+
+	public Integer getCapitulos() {
+		return capitulos;
+	}
+
+	public void setCapitulos(Integer capitulos) {
+		this.capitulos = capitulos;
 	}
 	
 

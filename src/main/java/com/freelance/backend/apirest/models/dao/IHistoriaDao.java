@@ -1,4 +1,4 @@
-package com.freelance.backend.apirest.models.dao;
+ package com.freelance.backend.apirest.models.dao;
 
 import java.util.List;
 
@@ -23,12 +23,16 @@ public interface IHistoriaDao  extends CrudRepository<Historia,Long>{
 			"					 FROM Historia his" + 
 			"					 WHERE his.activo =1" )
 	public List<Historia> findAllStoriesActives();
+
+	@Query(
+			"					 FROM Historia his" + 
+			"					 WHERE his.activo =0" )
+	public List<Historia> findAllStoriesInActives();
+
+	@Query(
+			"					 FROM Historia his" + 
+			"					 WHERE his.activo =0" +
+					"			AND his.titulo LIKE %:titulo% ")
+	public List<Historia>  findByName(@Param("titulo") String titulo);
 } 
 
-//
-//@Query(
-//		"					 FROM Historia his" + 
-//		"					 JOIN his.comentarios as com "
-//		+ "					 WHERE his.activo =1"
-//		+ "					 AND com.ganador = 1" )
-//public List<Map<String,Object>> findAllStoriesActives();

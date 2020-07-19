@@ -35,7 +35,7 @@ insert into historias (activo ,genero ,id_usuario ,relato ,titulo, imagen, mg, c
 insert into historias (activo ,genero ,id_usuario ,relato ,titulo, imagen, mg, capitulos ) values (1,'Fantasia','prueba','Era multimillonaria y del mas alto nivel','Prueba', 'https://firebasestorage.googleapis.com/v0/b/welit-adfb8.appspot.com/o/Imagenes%2FHistorias%2Fcuadro.jpg?alt=media&token=4339cb22-e579-4235-9b8d-10256e5e44b3', 30, 12);
 
 insert into historias (activo ,genero ,id_usuario ,relato ,titulo, imagen, mg, capitulos ) values (0,'Fantasia','prueba','Era multimillonaria y del mas alto nivel','El rey Leon', 'https://firebasestorage.googleapis.com/v0/b/welit-adfb8.appspot.com/o/Imagenes%2FHistorias%2Fcuadro.jpg?alt=media&token=4339cb22-e579-4235-9b8d-10256e5e44b3',40,20);
-insert into historias (activo ,genero ,id_usuario ,relato ,titulo, imagen, mg, capitulos ) values (0,'Fantasia','prueba','Era multimillonaria y del mas alto nivel','Caperusita roja', 'https://firebasestorage.googleapis.com/v0/b/welit-adfb8.appspot.com/o/Imagenes%2FHistorias%2Fcuadro.jpg?alt=media&token=4339cb22-e579-4235-9b8d-10256e5e44b3',20,15);
+insert into historias (activo ,genero ,id_usuario ,relato ,titulo, imagen, mg, capitulos ) values (0,'Fantasia','prueba','Era multimillonaria y del mas alto nivel','Caperusita roja', 'https://firebasestorage.googleapis.com/v0/b/welit-adfb8.appspot.com/o/Imagenes%2FHistorias%2Fcuadro.jpg?alt=media&token=4339cb22-e579-4235-9b8d-10256e5e44b3',20,15); 
 
 
 

@@ -65,7 +65,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 57 16 * * *", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 31 15 * * *", zone = "America/Buenos_Aires")
 	public List<Historia> findlala() {
 		List<Historia> historiasActivas = historiaDao.findAllStoriesActives();
 		for (Historia his : historiasActivas) {
@@ -74,7 +74,11 @@ public class HistoriaServiceImpl implements IHistoriaService {
 					.filter(coment -> coment.getGanador().equals(INACTIVO) && coment.getParticipando().equals(ACTIVO))
 					.collect(Collectors.toList());
 
-			Comparator<Comentario> compareByMg = (Comentario o1, Comentario o2) -> o1.getMg().compareTo(o2.getMg());
+			Comparator<Comentario> compareByMg = (Comentario o1, Comentario o2) -> {
+				Integer reactionCount = o1.getReacciones().size();
+				Integer reactionCount2 = o2.getReacciones().size();
+				return reactionCount.compareTo(reactionCount2);
+			};	
 			Collections.sort(comentariosParticipando, compareByMg.reversed());
 
 			try {

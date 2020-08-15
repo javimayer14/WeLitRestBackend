@@ -28,7 +28,7 @@ insert into usuarios (id_usuario, apellido , email, nombre, id_score, id_rango )
 insert into usuarios (id_usuario, apellido , email, nombre, id_score, id_rango ) values ('prueba3','Perez', 'asd@asd.com','Sebastian',3,3);
 insert into usuarios (id_usuario, apellido , email, nombre, id_score, id_rango ) values ('H60CfoiLy6hBk1H8BfcuCtADTHr2','segato', 'lili@lili.com','Liliana',4,3);
 
-insert into usuarios (id_usuario, apellido , email, nombre, id_score, id_rango ) values ('LkroBuuIOWaePXne8Z49rN4j7fQ2','Mayer', 'javimayer14@gmail.com','Javier',5,1);
+insert into usuarios (id_usuario, apellido , email, nombre, id_score, id_rango ) values ('AAm7A4OwntYuXRwC7z6tGwvbbAE2','Mayer', 'javimayer14@gmail.com','Javier',5,1);
 
 
 insert into historias (activo ,genero ,id_usuario ,relato ,titulo, imagen, mg, capitulos ) values (1,'Fantasia','prueba','Al caer la tarde, dos desconocidos se encuentran en los oscuros corredores de una galeria de cuadros. Con un ligero escalofrio uno le dijo al otro','El hombre y el cuadro','https://firebasestorage.googleapis.com/v0/b/welit-adfb8.appspot.com/o/Imagenes%2FHistorias%2Fcuadro.jpg?alt=media&token=4339cb22-e579-4235-9b8d-10256e5e44b3',42,5);
@@ -45,8 +45,23 @@ insert into comentarios (comentario ,ganador ,mg ,id_historia ,id_usuario, capit
 insert into comentarios (comentario ,ganador ,mg ,id_historia ,id_usuario, capitulo, participando ) values ('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',0,15,1,'prueba2',3,1);
 insert into comentarios (comentario ,ganador ,mg ,id_historia ,id_usuario, capitulo, participando ) values ('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',0,15,1,'prueba2',3,1);    
 insert into comentarios (comentario ,ganador ,mg ,id_historia ,id_usuario, capitulo, participando ) values ('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC',0,15,1,'prueba2',3,1);    
-insert into comentarios (comentario ,ganador ,mg ,id_historia ,id_usuario, capitulo, participando ) values ('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD',0,50,1,'LkroBuuIOWaePXne8Z49rN4j7fQ2',3,1);    
+insert into comentarios (comentario ,ganador ,mg ,id_historia ,id_usuario, capitulo, participando ) values ('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD',0,50,1,'AAm7A4OwntYuXRwC7z6tGwvbbAE2',3,1);    
    
    
 insert into comentarios (comentario ,ganador ,mg ,id_historia ,id_usuario, capitulo, participando ) values ('Desconsertado, Rafael, que asi se llamaba nuestro protagonista, penso en una broma de mal gusto, pero no podia olvidarse de esa mirada que lo dejo perplejo y lo siguio durante dias, algo le decia que debia volver a la muestra de arte. Quiza allli encontraria una respuesta.',0,10,1,'prueba3',3,1);   
 
+insert into reacciones (tipo,id_comentario ,id_usuario) values ('MG',1,'prueba')
+insert into reacciones (tipo,id_comentario ,id_usuario) values ('MG',2,'prueba')
+insert into reacciones (tipo,id_comentario ,id_usuario) values ('MG',3,'prueba')
+insert into reacciones (tipo,id_comentario ,id_usuario) values ('MG',4,'prueba')
+insert into reacciones (tipo,id_comentario ,id_usuario) values ('MG',5,'prueba')
+insert into reacciones (tipo,id_comentario ,id_usuario) values ('MG',1,'prueba2')
+insert into reacciones (tipo,id_comentario ,id_usuario) values ('MG',2,'prueba2')
+insert into reacciones (tipo,id_comentario ,id_usuario) values ('MG',3,'prueba2')
+insert into reacciones (tipo,id_comentario ,id_usuario) values ('MG',10,'prueba2')
+
+use welit
+
+select * from comentarios c2 u3 h2 u2 
+
+select * from reacciones r 

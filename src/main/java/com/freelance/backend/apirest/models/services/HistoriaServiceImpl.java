@@ -65,7 +65,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 0 18 * * *", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 20 18 * * *", zone = "America/Buenos_Aires")
 	public List<Historia> findlala() {
 		List<Historia> historiasActivas = historiaDao.findAllStoriesActives();
 		for (Historia his : historiasActivas) {
@@ -144,8 +144,8 @@ public class HistoriaServiceImpl implements IHistoriaService {
 		Integer plata = usuario.getScore().getMedallaPlata();
 		Integer bronce = usuario.getScore().getMedallaBronce();
 		Integer puntuacion = ((oro * PTS_ORO) + (plata * PTS_PLATA) + (bronce * PTS_BRONCE));
-		List<Rango> rangos = (List<Rango>) rangoDao.findAll();
-		Rango rango = new Rango();
+//		List<Rango> rangos = (List<Rango>) rangoDao.findAll();
+//		Rango rango = new Rango();
 //		for (Rango r : rangos) {
 //			if (puntuacion >= r.getPuntuacionMinima()) {
 //				rango = r;

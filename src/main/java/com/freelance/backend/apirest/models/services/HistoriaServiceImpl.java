@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,8 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	public static final Integer PTS_ORO = 100;
 	public static final Integer PTS_PLATA = 40;
 	public static final Integer PTS_BRONCE = 20;
+	
+	Logger logger;
 
 	@Autowired
 	IHistoriaDao historiaDao;
@@ -65,7 +68,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 30 18 * * *", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 36 18 * * *", zone = "America/Buenos_Aires")
 	public List<Historia> findlala() {
 		List<Historia> historiasActivas = historiaDao.findAllStoriesActives();
 		for (Historia his : historiasActivas) {
@@ -101,7 +104,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 				}
 
 			} catch (Exception e) {
-				// logger.error("No se pudo setear las medallas a los ganadores", e );
+				 logger.error("No se pudo setear las medallas a los ganadores", e );
 			}
 
 		}

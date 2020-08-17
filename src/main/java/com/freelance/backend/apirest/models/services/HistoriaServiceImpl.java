@@ -65,7 +65,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 31 15 * * *", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 0 18 * * *", zone = "America/Buenos_Aires")
 	public List<Historia> findlala() {
 		List<Historia> historiasActivas = historiaDao.findAllStoriesActives();
 		for (Historia his : historiasActivas) {
@@ -76,7 +76,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 
 			Comparator<Comentario> compareByMg = (Comentario o1, Comentario o2) -> {
 				Integer reactionCount = o1.getReacciones().size();
-				Integer reactionCount2 = o2.getReacciones().size();
+				Integer reactionCount2 = o2.getReacciones().size(); 
 				return reactionCount.compareTo(reactionCount2);
 			};	
 			Collections.sort(comentariosParticipando, compareByMg.reversed());
@@ -146,13 +146,13 @@ public class HistoriaServiceImpl implements IHistoriaService {
 		Integer puntuacion = ((oro * PTS_ORO) + (plata * PTS_PLATA) + (bronce * PTS_BRONCE));
 		List<Rango> rangos = (List<Rango>) rangoDao.findAll();
 		Rango rango = new Rango();
-		for (Rango r : rangos) {
-			if (puntuacion >= r.getPuntuacionMinima()) {
-				rango = r;
-			}
-		}
+//		for (Rango r : rangos) {
+//			if (puntuacion >= r.getPuntuacionMinima()) {
+//				rango = r;
+//			}
+//		}
 		usuario.getScore().setPuntuacion(puntuacion);
-		usuario.setRango(rango);
+//		usuario.setRango(rango);
 		return usuario;
 	}
 

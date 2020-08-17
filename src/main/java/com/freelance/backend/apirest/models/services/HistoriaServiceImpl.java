@@ -65,7 +65,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 20 18 * * *", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 30 18 * * *", zone = "America/Buenos_Aires")
 	public List<Historia> findlala() {
 		List<Historia> historiasActivas = historiaDao.findAllStoriesActives();
 		for (Historia his : historiasActivas) {
@@ -112,7 +112,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 		Usuario usuarioGanador = comentariosParticipando.get(0).getUsuario();
 		Integer medallaOro = usuarioGanador.getScore().getMedallaOro();
 		usuarioGanador.getScore().setMedallaOro(medallaOro + 1);
-		puntation(usuarioGanador);
+		//puntation(usuarioGanador);
 		comentariosParticipando.get(0).setGanador(1);
 		usuarioDao.save(usuarioGanador);
 	}
@@ -122,7 +122,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 			Usuario usuarioSegundo = comentariosParticipando.get(1).getUsuario();
 			Integer medallaPlata = usuarioSegundo.getScore().getMedallaPlata();
 			usuarioSegundo.getScore().setMedallaPlata(medallaPlata + 1);
-			puntation(usuarioSegundo);
+			//puntation(usuarioSegundo);
 			comentariosParticipando.get(0).setGanador(1);
 
 			usuarioDao.save(usuarioSegundo);
@@ -134,7 +134,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 			Usuario usuarioTercero = comentariosParticipando.get(2).getUsuario();
 			Integer medallaBronce = usuarioTercero.getScore().getMedallaBronce();
 			usuarioTercero.getScore().setMedallaBronce(medallaBronce + 1);
-			puntation(usuarioTercero);
+			//puntation(usuarioTercero);
 			usuarioDao.save(usuarioTercero);
 		}
 	}

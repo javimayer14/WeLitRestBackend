@@ -68,7 +68,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 17 19 * * *", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 25 19 * * *", zone = "America/Buenos_Aires")
 	public List<Historia> findlala() {
 
 		System.out.println("Arranca");
@@ -104,10 +104,10 @@ public class HistoriaServiceImpl implements IHistoriaService {
 				System.out.println("Guardo comentarios");
 				comentarioDao.saveAll(comentariosParticipando);
 
-				if (his.getCapitulos().equals(comentariosParticipando.get(0).getCapitulo())) {
-					his.setActivo(INACTIVO);
-					historiaDao.save(his);
-				}
+//				if (his.getCapitulos().equals(comentariosParticipando.get(0).getCapitulo())) {
+//					his.setActivo(INACTIVO);
+//					historiaDao.save(his);
+//				}
 				System.out.println("FIN");
 
 			} catch (Exception e) {

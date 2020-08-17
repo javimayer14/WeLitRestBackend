@@ -68,8 +68,9 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 05 19 * * *", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 15 19 * * *", zone = "America/Buenos_Aires")
 	public List<Historia> findlala() {
+
 		System.out.println("Arranca");
 		List<Historia> historiasActivas = historiaDao.findAllStoriesActives();
 		for (Historia his : historiasActivas) {
@@ -88,7 +89,9 @@ public class HistoriaServiceImpl implements IHistoriaService {
 
 			try {
 				if (comentariosParticipando.isEmpty()) {
-					return historiasActivas;
+					System.out.println("comentarios participando vaciio");
+
+					break;
 				}
 				System.out.println("empezando a dar puntos a los usuarios");
 				firstUser(comentariosParticipando);

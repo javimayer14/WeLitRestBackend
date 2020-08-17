@@ -68,10 +68,9 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 48 18 * * *", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 59 18 * * *", zone = "America/Buenos_Aires")
 	public List<Historia> findlala() {
-		 logger.info("Empiezo todo");
-
+		System.out.println("Arranca");
 		List<Historia> historiasActivas = historiaDao.findAllStoriesActives();
 		for (Historia his : historiasActivas) {
 			List<Comentario> comentarios = his.getComentarios();
@@ -85,13 +84,13 @@ public class HistoriaServiceImpl implements IHistoriaService {
 				return reactionCount.compareTo(reactionCount2);
 			};	
 			Collections.sort(comentariosParticipando, compareByMg.reversed());
-			 logger.info("Comentarios ordenados");
+			System.out.println("Comentarios ordenados");
 
 			try {
 				if (comentariosParticipando.isEmpty()) {
 					return historiasActivas;
 				}
-				logger.info("empezando a dar puntos a los usuarios");
+				System.out.println("empezando a dar puntos a los usuarios");
 				firstUser(comentariosParticipando);
 				secondUser(comentariosParticipando);
 				thirdUser(comentariosParticipando);
@@ -99,17 +98,17 @@ public class HistoriaServiceImpl implements IHistoriaService {
 				for (Comentario com : comentariosParticipando) {
 					com.setParticipando(INACTIVO);
 				}
-				logger.info("Guardo comentarios");
+				System.out.println("Guardo comentarios");
 				comentarioDao.saveAll(comentariosParticipando);
 
 				if (his.getCapitulos().equals(comentariosParticipando.get(0).getCapitulo())) {
 					his.setActivo(INACTIVO);
 					historiaDao.save(his);
 				}
-				logger.info("FIN");
+				System.out.println("FIN");
 
 			} catch (Exception e) {
-				 logger.error("No se pudo setear las medallas a los ganadores", e );
+				System.out.println("No se pudo setear las medallas a los ganadores");
 			}
 
 		}

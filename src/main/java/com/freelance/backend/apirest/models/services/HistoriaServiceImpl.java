@@ -68,7 +68,7 @@ public class HistoriaServiceImpl implements IHistoriaService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 20 15 * * *", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 30 15 * * *", zone = "America/Buenos_Aires")
 	public List<Historia> findlala() {
 
 		System.out.println("Arranca");
